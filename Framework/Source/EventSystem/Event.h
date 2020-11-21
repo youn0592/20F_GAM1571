@@ -2,7 +2,10 @@
 
 namespace fw {
 
-    class Event {
+    class Event
+    {
+        friend class EventManager;
+
     public:
         Event();
         virtual ~Event();
@@ -10,8 +13,10 @@ namespace fw {
         virtual const char* GetType() = 0;
 
     protected:
-    };
+        void SetDelay(float delay) { m_Delay = delay; }
 
+        float m_Delay = 0.0f;
+    };
 
     class InputEvent : public Event
     {
@@ -47,4 +52,5 @@ namespace fw {
         DeviceState m_DeviceState;
         unsigned int m_KeyCode;
     };
-}
+
+} // namespace fw

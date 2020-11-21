@@ -3,10 +3,11 @@
 #include "GameObject.h"
 
 namespace fw {
-    GameObject::GameObject(std::string name, vec2 pos, Mesh* pMesh, ShaderProgram* pShader, GameCore* pGameCore, vec4 color)
+    GameObject::GameObject(std::string name, vec2 pos, Mesh* pMesh, ShaderProgram* pShader, Texture* pTexture, GameCore* pGameCore, vec4 color)
     {
         m_pMesh = pMesh;
         m_pShader = pShader;
+        m_pTexture = pTexture;
         m_Position = pos;
         m_pGameCore = pGameCore;
         m_Name = name;
@@ -23,7 +24,7 @@ namespace fw {
 
     void GameObject::Draw()
     {
-      m_pMesh->Draw(m_Position, m_pShader, m_Color);
+        m_pMesh->Draw(m_Position, m_pShader, m_pTexture, m_Color, m_UVScale, m_UVOffset);
     }
 
     void GameObject::GetFrameWork()
@@ -38,6 +39,10 @@ namespace fw {
     vec2 GameObject::GetPosition()
     {
         return m_Position;
+    }
+    void GameObject::SetTexture(Texture* pTexture)
+    {
+        m_pTexture = pTexture;
     }
     std::string GameObject::GetName()
     {

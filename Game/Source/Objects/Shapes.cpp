@@ -1,7 +1,7 @@
 #include "GamePCH.h"
 #include "Shapes.h"
 
-const float createHuman[] =
+const fw::VertexFormat createHuman[] =
 {
     0.6f, 0.5f,   //HeadTop - top
     0.5f, 0.4f,   //HeadTop - right
@@ -22,9 +22,9 @@ const float createHuman[] =
 };
 
 const int meshPrimTime_Human = GL_TRIANGLES;
-const int meshNumVerts_Human = sizeof (createHuman) / (sizeof(float) * 2);
+const int meshNumVerts_Human = sizeof (createHuman) / sizeof(fw::VertexFormat) ;
 
-const float createAnimal[] =
+const fw::VertexFormat createAnimal[] =
 {
     0.2f, 0.6f, //Head - Left
     0.3f, 0.6f,  //Head - Right
@@ -40,4 +40,4 @@ const float createAnimal[] =
 };
 
 const int meshPrimType_Animal = GL_LINES;
-const int meshNumVerts_Animal = sizeof(createAnimal) / (sizeof(float) * 2);
+const int meshNumVerts_Animal = sizeof(createAnimal) / sizeof(fw::VertexFormat);
