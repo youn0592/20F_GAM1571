@@ -16,6 +16,7 @@
 #include "Objects/Mesh.h"
 #include "Objects/GameObject.h"
 #include "Objects/Texture.h"
+#include "Objects/Spritesheet.h"
 #include "UI/ImGuiManager.h"
 #include "Math/Vector.h"
 #include "EventSystem/Event.h"

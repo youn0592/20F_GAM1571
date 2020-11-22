@@ -114,7 +114,7 @@ void Game::Update(float deltaTime)
 
 void Game::Draw()
 {
-    glClearColor(0, 0, 0.2f, 0);
+    glClearColor(0, 0, 1.0f, 0);
     glClear(GL_COLOR_BUFFER_BIT);
 
     glPointSize(10);

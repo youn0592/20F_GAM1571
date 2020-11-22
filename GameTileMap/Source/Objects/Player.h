@@ -2,6 +2,14 @@
 
 class PlayerController;
 
+enum PlayerState {
+    Idle = 1,
+    MoveDown = 2,
+    MoveUp = 4,
+    MoveRight = 8,
+    MoveLeft = 16
+};
+
 class Player : public fw::GameObject
 {
 public:
@@ -10,7 +18,15 @@ public:
 
     virtual void Update(float deltaTime) override;
 
+    void SetSprite(std::string spriteName);
+
+    void Animation(PlayerState playerState);
+
 protected:
 
     PlayerController* m_pPlayerController = nullptr;
+    fw::Spritesheet* m_Spritesheet = nullptr;
+    fw::SpriteInfo m_SpriteInfo;
+
+    float m_AnimTimer = 0;
 };

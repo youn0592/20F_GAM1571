@@ -72,6 +72,7 @@ project "Framework"
 		"FrameWork/Libraries/**.h",
 		"Framework/Libraries/**.cpp",
 		"FrameWork/Libraries/stb/**.h",
+		"FrameWork/Libraries/rapidjson/**.h",
 	}
 
 	includedirs{
