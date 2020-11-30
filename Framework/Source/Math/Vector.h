@@ -96,4 +96,18 @@ namespace fw {
         };
     };
 
+
+    class ivec2 
+    {
+    public:
+        ivec2() { x = 0; y = 0; }
+        ivec2(int nx, int ny) { x = nx; y = ny; }
+
+        void Set(int nx, int ny) { x = nx; y = ny; }
+
+    public:
+        int x;
+        int y;
+    };
+
 } // namespace fw

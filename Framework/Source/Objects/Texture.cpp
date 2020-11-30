@@ -12,6 +12,8 @@ Texture::Texture(const char* filename)
         stbi_set_flip_vertically_on_load(true);
         unsigned char* data = stbi_load(filename, &width, &height, &numComponents, 4);
 
+        assert(data != nullptr);
+
         if (data != nullptr)
         {
             // Create OpenGL Texture.

@@ -21,6 +21,9 @@ namespace fw {
         m_Document.Parse(JsonString);
         delete[] JsonString;
 
+        m_Width  = m_Document["Width"].GetInt();
+        m_Height = m_Document["Height"].GetInt();
+
         for (auto& arr : m_Document["Sprites"].GetArray()) {
             SpriteInfo tempSI;
             tempSI.spriteName = arr["Name"].GetString();
@@ -47,6 +50,16 @@ namespace fw {
         assert(temp.spriteName != nullptr);
 
         return temp;
+    }
+
+    int Spritesheet::GetWidth()
+    {
+        return m_Width;
+    }
+
+    int Spritesheet::GetHeight()
+    {
+        return m_Height;
     }
 
 } // namespace fw

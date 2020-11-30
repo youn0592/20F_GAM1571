@@ -5,6 +5,8 @@
 #include "Objects/PlayerController.h"
 #include "Objects/Shapes.h"
 #include "Events/GameEvents.h"
+#include "Tilemap/Tilemap.h"
+#include "Tilemap/Layouts.h"
 
 Game::Game(fw::FWCore* pFramework) : fw::GameCore(pFramework)
 {
@@ -37,6 +39,7 @@ Game::~Game()
 
     delete m_pEventManager;
     delete m_pImGuiManager;
+    delete m_TileMap;
 }
 
 void Game::Init()
@@ -52,17 +55,22 @@ void Game::Init()
 
     m_pPlayerController = new PlayerController();
 
+
     // Load some shaders.
     m_pShaders["Basic"] = new fw::ShaderProgram("Data/Basic.vert", "Data/Basic.frag");
 
     // Create some meshes.
     m_pMeshes["Player"] = new fw::Mesh(meshPrimType_Sprite, meshNumVerts_Sprite, meshAttribs_Sprite);
+    m_pMeshes["Tilemap"] = new fw::Mesh(meshPrimType_Sprite, meshNumVerts_Sprite, meshAttribs_Sprite);
 
     // Load some textures.
-    m_pTextures["Test"] = new fw::Texture("Data/Textures/Sokoban.png");
+    m_pTextures["Player"] = new fw::Texture("Data/Textures/Sokoban.png");
+    m_pTextures["World"] = new fw::Texture("Data/Textures/Zelda.png");
 
+    m_TileMap = new Tilemap(level1Layout, level1Layout_Width, level1Layout_Height, m_pMeshes["Tilemap"], m_pShaders["Basic"], m_pTextures["World"]);
+    
     // Create some GameObjects.
-    m_pPlayer = new Player("Player", vec2(5, 5), m_pPlayerController, m_pMeshes["Player"], m_pShaders["Basic"], m_pTextures["Test"], this, fw::vec4::Green());
+    m_pPlayer = new Player("Player", vec2(5, 5), m_pPlayerController, m_pMeshes["Player"], m_pShaders["Basic"], m_pTextures["Player"], this, fw::vec4::Green());
     m_Objects.push_back(m_pPlayer);
 }
 
@@ -119,11 +127,14 @@ void Game::Draw()
 
     glPointSize(10);
 
+    m_TileMap->Draw();
+
     for (auto it = m_Objects.begin(); it != m_Objects.end(); it++)
     {
         fw::GameObject* pObject = *it;
         pObject->Draw();
     }
+
 
     m_pImGuiManager->EndFrame();
 }

@@ -2,6 +2,7 @@
 
 class PlayerController;
 class Player;
+class Tilemap;
 
 class Game : public fw::GameCore
 {
@@ -28,6 +29,8 @@ protected:
 
     Player* m_pPlayer = nullptr;
     std::vector<fw::GameObject*> m_Objects;
+
+    Tilemap* m_TileMap = nullptr;
 
     // Settings.
     bool m_VSyncEnabled = true;

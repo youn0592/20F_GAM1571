@@ -73,8 +73,8 @@ void Player::Update(float deltaTime)
 void Player::SetSprite(std::string spriteName)
 {
     m_SpriteInfo = m_Spritesheet->GetSpriteInfo(spriteName);
-    m_UVScale = vec2(m_SpriteInfo.SpriteW / 1024.0f, m_SpriteInfo.SpriteH / 512.0f);
-    m_UVOffset = vec2(m_SpriteInfo.SpriteX / 1024.0f, m_SpriteInfo.SpriteY / 512.0f);
+    m_UVScale = vec2((float)m_SpriteInfo.SpriteW / m_Spritesheet->GetWidth(), (float)m_SpriteInfo.SpriteH / m_Spritesheet->GetHeight());
+    m_UVOffset = vec2((float)m_SpriteInfo.SpriteX / m_Spritesheet->GetWidth(), (float)m_SpriteInfo.SpriteY / m_Spritesheet->GetHeight());
 }
 
 void Player::Animation(PlayerState playerState)

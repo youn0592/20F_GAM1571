@@ -35,7 +35,7 @@ public:
     void SetUniform1i(ShaderProgram* pShader, char* name, int value);
 
 
-    void Draw(vec2 pos, ShaderProgram* pShader, Texture* pTexture, vec4 color, vec2 UVScale, vec2 UVOffset);
+    void Draw(vec2 pos, ShaderProgram* pShader, Texture* pTexture, vec4 color, vec2 UVScale, vec2 UVOffset, vec2 Scale);
 
     void CreateShape(int numVertices, int primitiveType, const VertexFormat* pVertices);
     void CreateCircle(float radius, int numVertices, bool isFilled);

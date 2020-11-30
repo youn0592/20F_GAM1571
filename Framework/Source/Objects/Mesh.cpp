@@ -59,7 +59,7 @@ void Mesh::SetUniform1i(ShaderProgram* pShader, char* name, int value)
         glUniform1i(loc, value);
     }
 }
-void Mesh::Draw(vec2 pos, ShaderProgram* pShader, Texture* pTexture, vec4 color, vec2 UVScale, vec2 UVOffset)
+void Mesh::Draw(vec2 pos, ShaderProgram* pShader, Texture* pTexture, vec4 color, vec2 UVScale, vec2 UVOffset, vec2 Scale)
 {
     glUseProgram(pShader->GetProgram());
 
@@ -89,6 +89,7 @@ void Mesh::Draw(vec2 pos, ShaderProgram* pShader, Texture* pTexture, vec4 color,
 
         SetUniform2F(pShader, "u_UVScale", UVScale);
         SetUniform2F(pShader, "u_UVOffset", UVOffset);
+        SetUniform2F(pShader, "u_ObjectScale", Scale);
 
         if (pTexture != nullptr)
         {

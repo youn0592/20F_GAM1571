@@ -43,6 +43,7 @@ namespace fw {
         vec4 m_Color = vec4(1,1,1,1);
         vec2 m_UVScale = vec2(1, 1);
         vec2 m_UVOffset = vec2(0, 0);
+        vec2 m_Scale = vec2(1, 1);
 
         std::string m_Name;
     };
