@@ -4,9 +4,11 @@
 #include "Objects/Player.h"
 #include "Objects/PlayerController.h"
 #include "Objects/Shapes.h"
+#include "Objects/Enemy.h"
 #include "Events/GameEvents.h"
 #include "Tilemap/Tilemap.h"
 #include "Tilemap/Layouts.h"
+#include "Tilemap/Pathfinder.h"
 
 Game::Game(fw::FWCore* pFramework) : fw::GameCore(pFramework)
 {
@@ -40,6 +42,7 @@ Game::~Game()
     delete m_pEventManager;
     delete m_pImGuiManager;
     delete m_TileMap;
+    delete m_Pathfinder;
 }
 
 void Game::Init()
@@ -68,10 +71,37 @@ void Game::Init()
     m_pTextures["World"] = new fw::Texture("Data/Textures/Zelda.png");
 
     m_TileMap = new Tilemap(level1Layout, level1Layout_Width, level1Layout_Height, m_pMeshes["Tilemap"], m_pShaders["Basic"], m_pTextures["World"]);
+    m_Pathfinder = new Pathfinder(m_TileMap, level1Layout_Width, level1Layout_Height);
     
     // Create some GameObjects.
     m_pPlayer = new Player("Player", vec2(5, 5), m_pPlayerController, m_pMeshes["Player"], m_pShaders["Basic"], m_pTextures["Player"], this, fw::vec4::Green());
     m_Objects.push_back(m_pPlayer);
+
+    m_Enemy = new Enemy("Enemy", m_Pathfinder, m_TileMap, vec2(2,2), m_pMeshes["Player"], m_pShaders["Basic"], m_pTextures["World"], this, fw::vec4::Green());
+    m_Objects.push_back(m_Enemy);
+
+    //Pathfinder init
+    {
+        int startx = 1;
+        int starty = 1;
+        int endx = 10;
+        int endy = 10;
+        bool found = m_Pathfinder->FindPath(startx, starty, endx, endy);
+
+     
+        fw::OutputMessage("Found = %d\n", found);
+
+        int path[255];
+        int len = m_Pathfinder->GetPath(path, 255, endx, endy);
+
+        fw::OutputMessage("Length = %d\n", len);
+        for (int i = 0; i < len; i++)
+        {
+            fw::OutputMessage("%d\n", path[i]);
+        }
+
+        fw::OutputMessage("done\n");
+    }
 }
 
 void Game::StartFrame(float deltaTime)

@@ -3,6 +3,8 @@
 class PlayerController;
 class Player;
 class Tilemap;
+class Enemy;
+class Pathfinder;
 
 class Game : public fw::GameCore
 {
@@ -28,9 +30,11 @@ protected:
     std::map<std::string, fw::Texture*> m_pTextures;
 
     Player* m_pPlayer = nullptr;
+    Enemy* m_Enemy = nullptr;
     std::vector<fw::GameObject*> m_Objects;
 
     Tilemap* m_TileMap = nullptr;
+    Pathfinder* m_Pathfinder = nullptr;
 
     // Settings.
     bool m_VSyncEnabled = true;

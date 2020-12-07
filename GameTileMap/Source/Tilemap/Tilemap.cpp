@@ -23,8 +23,8 @@ Tilemap::Tilemap(const TileType* pLayout, int width, int height, fw::Mesh* pMesh
 
     m_TileMesh = pMesh;
 
-    m_LayoutSize.x = width;
-    m_LayoutSize.y = height;
+    m_TileLayoutSize.x = width;
+    m_TileLayoutSize.y = height;
 
     m_Properties.push_back(TileProperties("TileEmpty", true));
     m_Properties.push_back(TileProperties("TileMountain5", false));
@@ -56,19 +56,37 @@ void Tilemap::SetTile(char* fileName)
 void Tilemap::Draw()
 {
 
-    for(int x = 0; x < m_LayoutSize.x; x++)
+    for(int x = 0; x < m_TileLayoutSize.x; x++)
     {
-        for(int y = 0; y < m_LayoutSize.y; y++)
+        for(int y = 0; y < m_TileLayoutSize.y; y++)
         {
-            int TileIndex = y * m_LayoutSize.y + x;
+            int TileIndex = y * m_TileLayoutSize.y + x;
             char* name = m_Properties.at((int)m_pLayout[TileIndex]).m_SpriteName;
             SetTile(name);
             
-            vec2 pos = vec2(x * m_Scale.x, (m_LayoutSize.y - y - 1) * m_Scale.y) + vec2(0.3,0.3); //Temp Offset of level
+            vec2 pos = vec2(x * m_Scale.x, (m_TileLayoutSize.y - y - 1) * m_Scale.y) + vec2(0,0); //Temp Offset of level
 
 
             m_TileMesh->Draw(pos, m_pShader, m_pTexture, fw::vec4::Green(), m_UVScale, m_UVOffset, m_Scale);
             
         }
     }
+}
+
+vec2 Tilemap::GetCurrentTile(vec2 tilePos)
+{
+    fw::vec2 TilePos = fw::vec2(tilePos.x / m_Scale.x, tilePos.y / m_Scale.y);
+
+    return TilePos;
+}
+
+bool Tilemap::IsTileWalkableAtTilePos(int x, int y)
+{
+    if (x < 0 || x >= m_TileLayoutSize.x || y < 0 || y >= m_TileLayoutSize.y)
+    {
+        return false;
+    }
+
+    int num = y * m_TileLayoutSize.x + x;
+    return m_Properties.at(int(m_pLayout[num])).m_CanWalk;
 }

@@ -19,12 +19,12 @@ public:
     struct TileProperties {
 
         char* m_SpriteName =  "";
-        bool m_CanWalk = true;    
+        bool m_CanWalk;
 
         TileProperties(char* spriteName, bool canWalk)
         {
             m_SpriteName = spriteName;
-            m_CanWalk = m_CanWalk; 
+            m_CanWalk = canWalk; 
         }
     };
 
@@ -37,11 +37,15 @@ public:
 
    void Draw();
 
+   vec2 GetCurrentTile(vec2 tilePos);
+   bool IsTileWalkableAtTilePos(int x, int y);
+
+    fw::ivec2 m_TileLayoutSize; 
 protected:
 
     fw::Mesh* m_TileMesh = nullptr;
     TileType* m_pLayout = nullptr;
-    fw::ivec2 m_LayoutSize; 
+
 
 
     fw::Spritesheet* m_SpriteSheet = nullptr;
@@ -54,7 +58,7 @@ protected:
 
     vec2 m_UVScale = vec2(1,1);
     vec2 m_UVOffset = vec2(0, 0);
-    vec2 m_Scale = vec2(1.3,1.3);
+    vec2 m_Scale = vec2(1,1);
 
     std::vector<TileProperties> m_Properties;
     
